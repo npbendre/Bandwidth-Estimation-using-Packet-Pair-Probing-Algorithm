@@ -1,0 +1,32 @@
+#Select your environment
+
+# for BSD
+#OSFLAG = -DBSD
+#LIBS = 
+#LINKFLAGS  =
+
+# for SOLARIS
+#OSFLAG = -DSOLARIS
+#LIBS = 
+#LINKFLAGS = -lsocket -lnsl
+
+# for Linux
+OSFLAG = -DLINUX
+LIBS =
+LINKFLAGS =
+
+
+
+LINKOPTIONS = -o
+
+
+CC = gcc
+CFLAGS = -c -ggdb -O2 -Wall $(OSFLAG)
+CPLUS = g++
+CPLUSFLAGS = -c -ggdb -O2 -Wall $(OSFLAG)
+
+
+CLEANFILES = core core.* *.core *.o temp.* *.out typescript* \
+		*.lc *.lh *.bsdi *.sparc *.uw
+
+

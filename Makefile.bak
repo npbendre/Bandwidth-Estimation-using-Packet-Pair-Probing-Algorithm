@@ -1,0 +1,63 @@
+include Make.defines
+
+PROGS =	 client server
+
+OPTIONS = -DUNIX  -DUSE_SIGACTION -DANSI
+
+LIBS += -lrt
+
+COBJECTS =	functions.o 
+CSOURCES =	functions.c 
+
+CPLUSOBJECTS = 
+
+COMMONSOURCES =
+
+CPLUSSOURCES =
+
+all:	${PROGS}
+
+
+client:	client.o $(CPLUSOBJECTS) $(COBJECTS) $(LIBS) $(COMMONSOURCES) $(SOURCES)
+		${CC} ${LINKOPTIONS}  $@ client.o $(CPLUSOBJECTS) $(COBJECTS) $(LIBS) $(LINKFLAGS)
+
+
+server:	server.o $(CPLUSOBJECTS) $(COBJECTS)
+		${CC} ${LINKOPTIONS} $@ server.o $(CPLUSOBJECTS) $(COBJECTS) $(LIBS) $(LINKFLAGS)
+
+
+.cc.o:	$(HEADERS)
+	$(CPLUS) $(CPLUSFLAGS) $(OPTIONS) $<
+
+.c.o:	$(HEADERS)
+	$(CC) $(CFLAGS) $(OPTIONS) $<
+
+
+
+backup:
+	rm -f *.tar.gz
+	tar -cvzf hw1.tar.gz *
+
+clean:
+		rm -f ${PROGS} ${CLEANFILES} *.tar.gz
+
+depend:
+		makedepend client.c server.c  $(CFLAGS) $(HEADERS) $(SOURCES) $(COMMONSOURCES) $(CSOURCES)
+#		mkdep $(CFLAGS) $(HEADERS) $(SOURCES) $(COMMONSOURCES) $(CSOURCES)
+
+# DO NOT DELETE
+
+functions.o: /usr/include/stdio.h /usr/include/features.h
+functions.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+functions.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+functions.o: /usr/include/gnu/stubs-64.h /usr/include/bits/types.h
+functions.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+functions.o: /usr/include/_G_config.h /usr/include/wchar.h
+functions.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+functions.o: /usr/include/stdlib.h /usr/include/sys/types.h
+functions.o: /usr/include/time.h /usr/include/endian.h
+functions.o: /usr/include/bits/endian.h /usr/include/bits/byteswap.h
+functions.o: /usr/include/sys/select.h /usr/include/bits/select.h
+functions.o: /usr/include/bits/sigset.h /usr/include/bits/time.h
+functions.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+functions.o: /usr/include/alloca.h
